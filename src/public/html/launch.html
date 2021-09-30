@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PokeAPI-Prod-Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/launch.css">
+  </head>
+  <body>
+
+    <header class="header">
+      <h1>PokeAPI Consumption Project</h1>
+    </header>
+
+    <section class="section-container">
+      <form action="/" method="get">
+        <input type="text" id="pokeAPI-search" placeholder="search..." autocomplete="off">
+        <button type="submit" id="pokeAPI-search-btn">Search</button>
+        <label id="error-404">Pokemon cannot be found, please make sure to spell correctly.</label>
+      </form>
+      <img src="" id="display-pokemon">
+
+      <ul id="typing-ul-list">
+        <!-- <li>Grass</li>
+        <li>Poison</li> -->
+      </ul>
+      <ul id="games-ul-list">
+        <!-- <li><a href="">Blue</a></li>
+        <li><a href="">Red</a></li>
+        <li><a href="">Yellow</a></li>
+        <li><a href="">Gold</a></li> -->
+      </ul>
+
+      <table id="display-pokemon-info">
+        <tr>
+          <th>Table of Content</th>
+          <th>Available Data</th>
+        </tr>
+        <tr>          
+          <td id="table-of-contents">
+            <a href="" id="available-data-evolution">Evoution</a><br>
+            <a href="" id="available-data-encounter-location">Encounter Location</a><br>
+            <a href="" id="available-data=encounter-method">Encounter Method</a><br>
+            <a href="" id="available-data-move-set">Move Sets</a><br>
+            <a href="" id="available-data-abilities">Abilities</a><br>
+          </td>                    
+          <td id="available-data-results">
+            
+          </td>        
+        </tr>
+      </table>
+    </section>
+
+
+    <script type="module" src="../js/handler.js"></script>
+  </body>
+</html>
