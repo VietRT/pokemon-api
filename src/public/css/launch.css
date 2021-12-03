@@ -79,12 +79,16 @@ body{
   padding: 15px 0
 }
 
-
 #table-of-contents a {
   color: black;
+  height: 150px;
 }
 
 #available-data-results a{
   line-height: 2rem;
   color: black;
+}
+
+#evolution-specie {
+  text-decoration: none;
 }

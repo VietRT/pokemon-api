@@ -1,16 +1,17 @@
 import { DOMElements } from "/js/dom_modules.js";
-import { getSpecies } from "/js/fetch.js";
+import { getSpecies, getAllLocations } from "/js/fetch.js";
 
 export let pokemonObject = {
   specie: "N/A",
   evolutionChain: [],
-  evolutionData: []
+  evolutionData: [],
+  encounterLocation: []
 } ;
 
 export const displayPokemon = function (api_url) {  
 
-  clearTypingsList();
-  clearEvolutionsList();
+  clearElements(DOMElements.typeList);
+  clearElements(DOMElements.available_data_table);
 
   DOMElements.pokePic.src = `${api_url.sprites["front_default"]}`;
   DOMElements.pokePic.id = `display-pokemon-active`;
@@ -24,11 +25,12 @@ export const displayPokemon = function (api_url) {
   });
 
   getSpecies();
+  getAllLocations();
 }
 
 export const displayAppearOccurence = function(games_array) {
   
-  clearVersionsTable();
+  clearElements(DOMElements.gamesList);
 
   games_array.forEach(game => {
     const listItem = document.createElement("li");
@@ -41,33 +43,10 @@ export const displayAppearOccurence = function(games_array) {
   });
 }
 
-export const clearVersionsTable = function() {
-  //const table = document.querySelector("#games-ul-list");
-  if(DOMElements.gamesList) {
-    while(DOMElements.gamesList.firstChild) {
-      DOMElements.gamesList.removeChild(DOMElements.gamesList.firstChild);
-    }
-  }
-}
-
-export const clearTypingsList = function() {
-  if(DOMElements.typeList) {
-    while(DOMElements.typeList.firstChild) {
-      DOMElements.typeList.removeChild(DOMElements.typeList.firstChild);
-    }
-  }
-}
-
-export const clearEvolutionsList = function () {
-  if(pokemonObject.evolutionChain.length > 0) {
-    pokemonObject.evolutionChain = [];
-  }
-
-  const data = document.querySelector("#available-data-results");
-
-  if(data) {
-    while(data.firstChild) {
-      data.removeChild(data.firstChild);
+export const clearElements = function(element) {
+  if(element) {
+    while(element.firstChild) {
+      element.removeChild(element.firstChild);
     }
   }
 }

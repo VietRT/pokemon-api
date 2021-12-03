@@ -1,15 +1,18 @@
 import { DOMElements } from "/js/dom_modules.js";
+
 import { 
   pokemonObject, 
   displayPokemon, 
   displayAppearOccurence, 
-  clearTypingsList, 
-  clearVersionsTable } from "/js/pokemon.js";
+  // clearTypingsList, 
+  // clearVersionsTable 
+  clearElements
+} from "/js/pokemon.js";
 
-export const getPokemon = function(pokeID) {
+export const getPokemon = function() {
 
   const req = new XMLHttpRequest();
-  req.open('GET', `https://pokeapi.co/api/v2/pokemon/${pokeID}`);
+  req.open('GET', `https://pokeapi.co/api/v2/pokemon/${DOMElements.pokeSearch.value}`);
   req.responseType = "json";
   
   req.onload = function() {  
@@ -17,8 +20,11 @@ export const getPokemon = function(pokeID) {
     if(req.status == 404) {
       DOMElements.notFound.id = `error-404-active`; //changed
       DOMElements.pokePic.id = `display-pokemon`; //changed
-      clearVersionsTable();
-      clearTypingsList();
+      clearElements(DOMElements.gamesList);
+      // clearVersionsTable();
+      clearElements(DOMElements.typesList);
+      // clearTypingsList();
+
       document.querySelector("#display-pokemon-info").style.display = "none";
     }
     else {
@@ -41,7 +47,7 @@ export const getSpecies = function() {
   req.onreadystatechange = function () {
     if(req.readyState === 4 && req.status === 200) {
       pokemonObject.specie = req.response.evolution_chain.url;
-      // console.log(specie);
+      pokemonObject.evolutionChain = [];
       getEvolutions();
     }
   }
@@ -56,7 +62,7 @@ const getEvolutions = function() {
   req.onreadystatechange = function() {
     if(req.readyState === 4 && req.status) {
       pokemonObject.evolutionData = req.response.chain; //changed
-      //console.log(evolutionData);
+      //console.log(evolutionData);      
       getAllEvolutionChain(pokemonObject.evolutionData); //changed
     }
   }
@@ -85,3 +91,16 @@ const getAllEvolutionChain = function(evoData) {
 
   }while(evoData != undefined && evoData.hasOwnProperty("evolves_to"));
 } 
+
+export const getAllLocations = function() {
+  const req = new XMLHttpRequest();
+  req.open("GET", `https://pokeapi.co/api/v2/pokemon/${DOMElements.pokeSearch.value}/encounters`);
+  req.responseType = "json";
+
+  req.onload = function() {
+    const load = req.response;
+    pokemonObject.encounterLocation = load;
+    //console.log(pokemonObject.encounterLocation);
+  }
+  req.send();
+}
